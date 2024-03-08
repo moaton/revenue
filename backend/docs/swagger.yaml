@@ -1,0 +1,186 @@
+basePath: /api
+definitions:
+  dto.CreateRevenueRequest:
+    properties:
+      amount:
+        type: integer
+      name:
+        type: string
+      type:
+        $ref: '#/definitions/types.Type'
+    type: object
+  dto.LoginRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  dto.Response:
+    properties:
+      description:
+        type: string
+      errorCode:
+        type: string
+      payload: {}
+    type: object
+  dto.SignUpRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  types.Type:
+    enum:
+    - Продукты
+    - Депозит
+    - Кредит
+    - Рассрочка
+    - Фастфуд
+    - Доставка еды
+    - Оплата интернета
+    - Оплата тарифного плана
+    - Одежда
+    - Электронная техника
+    - Цветы
+    - Подарки
+    - Кинотеатр
+    - Авиабилеты
+    - ЖД билеты
+    - Такси
+    - Украшения
+    - Компьютерные игры
+    - Другие развлечения
+    - Кафе/рестораны
+    - Спорт
+    - Книги
+    - Здоровье
+    - Отели
+    - Аренда жилья
+    - Перевод
+    - Налоги
+    - Вывод денег
+    - Пополнение счета
+    - Снятия с депозита
+    - Получение перевода
+    - Долг
+    type: string
+    x-enum-varnames:
+    - TypeGroceries
+    - TypeDeposit
+    - TypeCredit
+    - TypeHirePurchase
+    - TypeFastFood
+    - TypeFoodDelivery
+    - TypeInternetPayment
+    - TypeTariffPlanPayment
+    - TypeClothes
+    - TypeElectronicEquipment
+    - TypeFlowers
+    - TypeGifts
+    - TypeMovie
+    - TypeAirTicket
+    - TypeTrainTicket
+    - TypeTaxi
+    - TypeJewellery
+    - TypeComputerGames
+    - TypeOtherEntertainment
+    - TypeCatering
+    - TypeSport
+    - TypeBooks
+    - TypeHealth
+    - TypeHotel
+    - TypeRent
+    - TypeTransfers
+    - TypeTaxes
+    - TypeWithdrawal
+    - TypeReplenishment
+    - TypeWithdrawalsFromDeposit
+    - TypeReceivingTransfer
+    - TypeLend
+info:
+  contact: {}
+  description: API Server for Revenue App
+  title: Revenue App
+  version: 1.0.0
+paths:
+  /revenue:
+    post:
+      description: Retrieve revenue id
+      parameters:
+      - description: request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateRevenueRequest'
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/dto.Response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/dto.Response'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.Response'
+      summary: Retrieve revenue id
+      tags:
+      - revenue
+  /users:
+    post:
+      description: Retrieve user token
+      parameters:
+      - description: request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.LoginRequest'
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/dto.Response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/dto.Response'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.Response'
+      summary: Retrieve user token
+      tags:
+      - user
+  /users/sign-up:
+    post:
+      description: Retrieve bool
+      parameters:
+      - description: request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.SignUpRequest'
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/dto.Response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/dto.Response'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.Response'
+      summary: Retrieve bool
+      tags:
+      - user
+swagger: "2.0"

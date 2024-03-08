@@ -1,0 +1,38 @@
+package types
+
+type Type string
+
+const (
+	TypeGroceries              Type = "Продукты"
+	TypeDeposit                Type = "Депозит"
+	TypeCredit                 Type = "Кредит"
+	TypeHirePurchase           Type = "Рассрочка"
+	TypeFastFood               Type = "Фастфуд"
+	TypeFoodDelivery           Type = "Доставка еды"
+	TypeInternetPayment        Type = "Оплата интернета"
+	TypeTariffPlanPayment      Type = "Оплата тарифного плана"
+	TypeClothes                Type = "Одежда"
+	TypeElectronicEquipment    Type = "Электронная техника"
+	TypeFlowers                Type = "Цветы"
+	TypeGifts                  Type = "Подарки"
+	TypeMovie                  Type = "Кинотеатр"
+	TypeAirTicket              Type = "Авиабилеты"
+	TypeTrainTicket            Type = "ЖД билеты"
+	TypeTaxi                   Type = "Такси"
+	TypeJewellery              Type = "Украшения"
+	TypeComputerGames          Type = "Компьютерные игры"
+	TypeOtherEntertainment     Type = "Другие развлечения"
+	TypeCatering               Type = "Кафе/рестораны"
+	TypeSport                  Type = "Спорт"
+	TypeBooks                  Type = "Книги"
+	TypeHealth                 Type = "Здоровье"
+	TypeHotel                  Type = "Отели"
+	TypeRent                   Type = "Аренда жилья"
+	TypeTransfers              Type = "Перевод"
+	TypeTaxes                  Type = "Налоги"
+	TypeWithdrawal             Type = "Вывод денег"
+	TypeReplenishment          Type = "Пополнение счета"
+	TypeWithdrawalsFromDeposit Type = "Снятия с депозита"
+	TypeReceivingTransfer      Type = "Получение перевода"
+	TypeLend                   Type = "Долг"
+)

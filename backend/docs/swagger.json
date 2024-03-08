@@ -1,0 +1,253 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API Server for Revenue App",
+        "title": "Revenue App",
+        "contact": {},
+        "version": "1.0.0"
+    },
+    "basePath": "/api",
+    "paths": {
+        "/revenue": {
+            "post": {
+                "description": "Retrieve revenue id",
+                "tags": [
+                    "revenue"
+                ],
+                "summary": "Retrieve revenue id",
+                "parameters": [
+                    {
+                        "description": "request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.CreateRevenueRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "post": {
+                "description": "Retrieve user token",
+                "tags": [
+                    "user"
+                ],
+                "summary": "Retrieve user token",
+                "parameters": [
+                    {
+                        "description": "request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.LoginRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/sign-up": {
+            "post": {
+                "description": "Retrieve bool",
+                "tags": [
+                    "user"
+                ],
+                "summary": "Retrieve bool",
+                "parameters": [
+                    {
+                        "description": "request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.SignUpRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Response"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "dto.CreateRevenueRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/definitions/types.Type"
+                }
+            }
+        },
+        "dto.LoginRequest": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.Response": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "errorCode": {
+                    "type": "string"
+                },
+                "payload": {}
+            }
+        },
+        "dto.SignUpRequest": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.Type": {
+            "type": "string",
+            "enum": [
+                "Продукты",
+                "Депозит",
+                "Кредит",
+                "Рассрочка",
+                "Фастфуд",
+                "Доставка еды",
+                "Оплата интернета",
+                "Оплата тарифного плана",
+                "Одежда",
+                "Электронная техника",
+                "Цветы",
+                "Подарки",
+                "Кинотеатр",
+                "Авиабилеты",
+                "ЖД билеты",
+                "Такси",
+                "Украшения",
+                "Компьютерные игры",
+                "Другие развлечения",
+                "Кафе/рестораны",
+                "Спорт",
+                "Книги",
+                "Здоровье",
+                "Отели",
+                "Аренда жилья",
+                "Перевод",
+                "Налоги",
+                "Вывод денег",
+                "Пополнение счета",
+                "Снятия с депозита",
+                "Получение перевода",
+                "Долг"
+            ],
+            "x-enum-varnames": [
+                "TypeGroceries",
+                "TypeDeposit",
+                "TypeCredit",
+                "TypeHirePurchase",
+                "TypeFastFood",
+                "TypeFoodDelivery",
+                "TypeInternetPayment",
+                "TypeTariffPlanPayment",
+                "TypeClothes",
+                "TypeElectronicEquipment",
+                "TypeFlowers",
+                "TypeGifts",
+                "TypeMovie",
+                "TypeAirTicket",
+                "TypeTrainTicket",
+                "TypeTaxi",
+                "TypeJewellery",
+                "TypeComputerGames",
+                "TypeOtherEntertainment",
+                "TypeCatering",
+                "TypeSport",
+                "TypeBooks",
+                "TypeHealth",
+                "TypeHotel",
+                "TypeRent",
+                "TypeTransfers",
+                "TypeTaxes",
+                "TypeWithdrawal",
+                "TypeReplenishment",
+                "TypeWithdrawalsFromDeposit",
+                "TypeReceivingTransfer",
+                "TypeLend"
+            ]
+        }
+    }
+}
