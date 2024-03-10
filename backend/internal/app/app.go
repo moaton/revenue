@@ -50,5 +50,5 @@ func (a *Application) Run() {
 	swaggerHandler := ginSwagger.DisablingWrapHandler(swaggerFile.Handler, "DISABLE_SWAGGER")
 	r.GET("/swagger/*any", swaggerHandler)
 
-	r.Run(":8080")
+	r.Run("localhost:8080")
 }

@@ -25,8 +25,10 @@ func newUsers(repo interfaces.Repository) *users {
 
 func (u *users) SignUp(ctx context.Context, req dto.SignUpRequest) error {
 	user := entity.User{
-		Id:       uuid.New(),
-		Username: req.Username,
+		Id:        uuid.New(),
+		Username:  req.Username,
+		CreatedAt: time.Now().UTC(),
+		UpdatedAt: time.Now().UTC(),
 	}
 
 	hash, err := bcrypt.GenerateFromPassword([]byte(req.Password), 10)

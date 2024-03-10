@@ -1,14 +1,5 @@
 basePath: /api
 definitions:
-  dto.CreateRevenueRequest:
-    properties:
-      amount:
-        type: integer
-      name:
-        type: string
-      type:
-        $ref: '#/definitions/types.Type'
-    type: object
   dto.LoginRequest:
     properties:
       password:
@@ -23,6 +14,23 @@ definitions:
       errorCode:
         type: string
       payload: {}
+    type: object
+  dto.Revenue:
+    properties:
+      amount:
+        type: integer
+      datetime:
+        type: string
+      description:
+        type: string
+      group_id:
+        type: string
+      name:
+        type: string
+      type:
+        $ref: '#/definitions/types.Type'
+      user_id:
+        type: string
     type: object
   dto.SignUpRequest:
     properties:
@@ -106,15 +114,17 @@ info:
   version: 1.0.0
 paths:
   /revenue:
-    post:
-      description: Retrieve revenue id
+    get:
+      description: Retrieve revenues
       parameters:
-      - description: request
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/dto.CreateRevenueRequest'
+      - description: "0"
+        in: query
+        name: page
+        type: integer
+      - description: "10"
+        in: query
+        name: size
+        type: integer
       responses:
         "200":
           description: Successful operation
@@ -128,6 +138,35 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/dto.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Retrieve revenues
+      tags:
+      - revenue
+    post:
+      description: Retrieve revenue id
+      parameters:
+      - description: request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.Revenue'
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/dto.Response'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/dto.Response'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.Response'
+      security:
+      - ApiKeyAuth: []
       summary: Retrieve revenue id
       tags:
       - revenue
@@ -183,4 +222,9 @@ paths:
       summary: Retrieve bool
       tags:
       - user
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"
