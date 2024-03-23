@@ -2,7 +2,6 @@ package dto
 
 import (
 	"backend/internal/types"
-	"time"
 
 	"github.com/google/uuid"
 )
@@ -14,7 +13,7 @@ type Revenue struct {
 	Amount      int64      `json:"amount"`
 	Description *string    `json:"description"`
 	GroupId     *uuid.UUID `json:"group_id"`
-	Datetime    *time.Time `json:"datetime"`
+	Datetime    string     `json:"datetime"`
 }
 
 type CreateRevenueResponse struct {

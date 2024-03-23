@@ -17,8 +17,11 @@ func newRevenue(repo interfaces.Repository) *revenue {
 }
 
 func (r *revenue) CreateRevenue(ctx context.Context, req dto.Revenue) (string, error) {
-	revenue := revenueToEntity(req)
-	err := r.db.Revenue().CreateRevenue(r.db.Conn(), revenue)
+	revenue, err := revenueToEntity(req)
+	if err != nil {
+		return "", err
+	}
+	err = r.db.Revenue().CreateRevenue(r.db.Conn(), revenue)
 	if err != nil {
 		return "", err
 	}
@@ -32,4 +35,12 @@ func (r *revenue) GetRevenues(ctx context.Context, req dto.GetRevenuesRequest) (
 		return nil, 0, err
 	}
 	return convertRevenues(revenues), total, nil
+}
+
+func (r *revenue) GetCharts(ctx context.Context) ([]int64, error) {
+	charts, err := r.db.Revenue().GetCharts(r.db.Conn())
+	if err != nil {
+		return nil, err
+	}
+	return charts, nil
 }

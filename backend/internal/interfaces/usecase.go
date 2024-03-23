@@ -18,4 +18,5 @@ type UsersUsecaseInterface interface {
 type RevenueUsecaseInterface interface {
 	CreateRevenue(ctx context.Context, req dto.Revenue) (string, error)
 	GetRevenues(ctx context.Context, req dto.GetRevenuesRequest) ([]dto.Revenue, int64, error)
+	GetCharts(ctx context.Context) ([]int64, error)
 }

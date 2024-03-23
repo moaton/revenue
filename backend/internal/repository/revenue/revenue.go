@@ -23,9 +23,19 @@ func (r *Repository) GetRevenues(db *postgres.Gorm, req entity.RevenueFilter) ([
 	if err != nil {
 		return nil, 0, err
 	}
-	err = db.DB.Debug().Table("revenues").Limit(req.Pagination.Limit).Offset(req.Pagination.Offset).Find(&revenues).Error
+	err = db.DB.Debug().Table("revenues").Limit(req.Pagination.Limit).Offset(req.Pagination.Offset).Order("datetime desc").Find(&revenues).Error
 	if err != nil {
 		return nil, 0, err
 	}
 	return revenues, total, nil
+}
+
+func (r *Repository) GetCharts(db *postgres.Gorm) ([]int64, error) {
+	var charts []int64
+
+	err := db.DB.Debug().Table("revenues").Select("count(*)").Group("DATE_TRUNC('month', datetime)").Order("DATE_TRUNC('month', datetime)").Find(&charts).Error
+	if err != nil {
+		return nil, err
+	}
+	return charts, nil
 }

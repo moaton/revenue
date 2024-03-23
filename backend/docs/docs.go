@@ -45,7 +45,7 @@ const docTemplate = `{
                     "200": {
                         "description": "Successful operation",
                         "schema": {
-                            "$ref": "#/definitions/dto.Response"
+                            "$ref": "#/definitions/dto.GetRevenuesResponse"
                         }
                     },
                     "400": {
@@ -89,6 +89,40 @@ const docTemplate = `{
                         "description": "Successful operation",
                         "schema": {
                             "$ref": "#/definitions/dto.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/revenue/charts": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Retrieve charts",
+                "tags": [
+                    "revenue"
+                ],
+                "summary": "Retrieve charts",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/dto.GetChartsResponse"
                         }
                     },
                     "400": {
@@ -188,6 +222,31 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "dto.GetChartsResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "dto.GetRevenuesResponse": {
+            "type": "object",
+            "properties": {
+                "revenues": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dto.Revenue"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
         "dto.LoginRequest": {
             "type": "object",
             "properties": {

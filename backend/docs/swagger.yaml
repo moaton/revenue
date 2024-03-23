@@ -1,5 +1,21 @@
 basePath: /api
 definitions:
+  dto.GetChartsResponse:
+    properties:
+      data:
+        items:
+          type: integer
+        type: array
+    type: object
+  dto.GetRevenuesResponse:
+    properties:
+      revenues:
+        items:
+          $ref: '#/definitions/dto.Revenue'
+        type: array
+      total:
+        type: integer
+    type: object
   dto.LoginRequest:
     properties:
       password:
@@ -129,7 +145,7 @@ paths:
         "200":
           description: Successful operation
           schema:
-            $ref: '#/definitions/dto.Response'
+            $ref: '#/definitions/dto.GetRevenuesResponse'
         "400":
           description: Bad request
           schema:
@@ -168,6 +184,27 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Retrieve revenue id
+      tags:
+      - revenue
+  /revenue/charts:
+    get:
+      description: Retrieve charts
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/dto.GetChartsResponse'
+        "400":
+          description: Bad request
+          schema:
+            $ref: '#/definitions/dto.Response'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/dto.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Retrieve charts
       tags:
       - revenue
   /users:

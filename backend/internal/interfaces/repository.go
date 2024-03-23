@@ -19,4 +19,5 @@ type UsersRepositoryInterface interface {
 type RevenueRepositoryInterface interface {
 	CreateRevenue(db *postgres.Gorm, req entity.Revenue) error
 	GetRevenues(db *postgres.Gorm, req entity.RevenueFilter) ([]entity.Revenue, int64, error)
+	GetCharts(db *postgres.Gorm) ([]int64, error)
 }

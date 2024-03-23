@@ -23,8 +23,9 @@ func NewRevenueRoutes(routerGroup *gin.RouterGroup, usecase interfaces.Usecase) 
 	group := routerGroup.Group("/revenue")
 	group.Use(middleware.Auth())
 
-	group.POST("/", router.CreateRevenue)
-	group.GET("/", router.GetRevenues)
+	group.POST("", router.CreateRevenue)
+	group.GET("", router.GetRevenues)
+	group.GET("/charts", router.GetCharts)
 }
 
 // CreateRevenue create revenue
@@ -80,7 +81,7 @@ func (r *revenueRoutes) CreateRevenue(c *gin.Context) {
 // @Description Retrieve revenues
 // @Param page query int false "0"
 // @Param size query int false "10"
-// @Success 200 {object} dto.Response "Successful operation"
+// @Success 200 {object} dto.GetRevenuesResponse "Successful operation"
 // @Failure 400 {object} dto.Response "Bad request"
 // @Failure 500 {object} dto.Response "Internal server error"
 // @Router /revenue [get]
@@ -128,6 +129,33 @@ func (r *revenueRoutes) GetRevenues(c *gin.Context) {
 		Payload: dto.GetRevenuesResponse{
 			Revenues: revenues,
 			Total:    total,
+		},
+	})
+
+}
+
+// GetCharts returns charts
+// @Tags revenue
+// @Summary Retrieve charts
+// @Security ApiKeyAuth
+// @Description Retrieve charts
+// @Success 200 {object} dto.GetChartsResponse "Successful operation"
+// @Failure 400 {object} dto.Response "Bad request"
+// @Failure 500 {object} dto.Response "Internal server error"
+// @Router /revenue/charts [get]
+func (r *revenueRoutes) GetCharts(c *gin.Context) {
+	charts, err := r.usecase.Revenue().GetCharts(c.Request.Context())
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, dto.Response{
+			ErrorCode:   "BAD_REQUEST",
+			Description: err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, &dto.Response{
+		Payload: dto.GetChartsResponse{
+			Data: charts,
 		},
 	})
 

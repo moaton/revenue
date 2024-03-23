@@ -3,6 +3,7 @@ package app
 import (
 	"backend/docs"
 	"backend/internal/repository"
+	"backend/internal/transport/http/handlers/middleware"
 	"backend/internal/transport/http/handlers/revenue"
 	"backend/internal/transport/http/handlers/users"
 	"backend/internal/usecase"
@@ -41,6 +42,7 @@ func (a *Application) Run() {
 	repo := repository.NewRepository(db)
 
 	r := gin.Default()
+	r.Use(middleware.CorsMiddleware())
 	v1 := r.Group("/api")
 	usecase := usecase.New(repo)
 	revenue.NewRevenueRoutes(v1, usecase)
@@ -50,5 +52,5 @@ func (a *Application) Run() {
 	swaggerHandler := ginSwagger.DisablingWrapHandler(swaggerFile.Handler, "DISABLE_SWAGGER")
 	r.GET("/swagger/*any", swaggerHandler)
 
-	r.Run("localhost:8080")
+	r.Run("localhost:8081")
 }

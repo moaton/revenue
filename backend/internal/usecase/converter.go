@@ -8,11 +8,10 @@ import (
 	"github.com/google/uuid"
 )
 
-func revenueToEntity(req dto.Revenue) entity.Revenue {
-	now := time.Now().UTC()
-	datetime := now
-	if req.Datetime != nil {
-		datetime = *req.Datetime
+func revenueToEntity(req dto.Revenue) (entity.Revenue, error) {
+	datetime, err := time.Parse("2006-01-02T15:04:05", req.Datetime)
+	if err != nil {
+		return entity.Revenue{}, err
 	}
 	return entity.Revenue{
 		ID:          uuid.New(),
@@ -25,7 +24,7 @@ func revenueToEntity(req dto.Revenue) entity.Revenue {
 		Datetime:    datetime,
 		CreatedAt:   time.Now().UTC(),
 		UpdatedAt:   time.Now().UTC(),
-	}
+	}, nil
 }
 
 func getRevenuesRequestToEntity(req dto.GetRevenuesRequest) entity.RevenueFilter {
@@ -40,6 +39,7 @@ func getRevenuesRequestToEntity(req dto.GetRevenuesRequest) entity.RevenueFilter
 func convertRevenues(req []entity.Revenue) []dto.Revenue {
 	revenues := make([]dto.Revenue, 0, len(req))
 	for _, revenue := range req {
+		datetime := revenue.Datetime.Format("2006-01-02 15:04:05")
 		revenues = append(revenues, dto.Revenue{
 			UserId:      revenue.UserId,
 			Name:        revenue.Name,
@@ -47,7 +47,7 @@ func convertRevenues(req []entity.Revenue) []dto.Revenue {
 			Amount:      revenue.Amount,
 			Description: revenue.Description,
 			GroupId:     revenue.GroupId,
-			Datetime:    &revenue.Datetime,
+			Datetime:    datetime,
 		})
 	}
 	return revenues
